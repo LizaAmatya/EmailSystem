@@ -1,7 +1,7 @@
 from django.db import models
 
 class EmailTemplate(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     template = models.FileField(upload_to='email_templates/')
     
 
