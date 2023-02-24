@@ -27,3 +27,5 @@ class Email(models.Model):
     status = models.CharField(max_length=20, choices=EMAIL_STATUS, default='draft')
     signature = models.TextField(blank=True, null=True)
     error_message = models.TextField(blank=True, null=True)
+    is_read = models.BooleanField(default=False)
+    
