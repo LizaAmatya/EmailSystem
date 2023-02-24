@@ -17,7 +17,7 @@ def send_dynamic_email(self, instance_id, template_id, context):
         if template_id:
             try:
                 template = EmailTemplate.objects.get(pk=template_id).template
-                template = os.path.join(BASE_DIR, 'media/email_templates/email_eg.html')
+                template = os.path.join(BASE_DIR, template.path)
                 
             except EmailTemplate.DoesNotExist:
                 instance.error_message = 'Template Does not exist.'
