@@ -1,3 +1,4 @@
+from email_app.filters import EmailFilter
 from email_app.models import Email
 from email_app.serializers import EmailSerializer
 from email_app.tasks import send_dynamic_email
@@ -35,3 +36,5 @@ class EmailList(ListAPIView):
     queryset = Email.objects.all()
     pagination_class = CustomPagination
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    filtset_class = EmailFilter
+    
