@@ -4,6 +4,9 @@ FROM python:3.8-alpine
 # set work directory
 WORKDIR /usr/src/app
 
+ENV APP_HOME=/usr/src/app
+RUN mkdir $APP_HOME/media
+
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1

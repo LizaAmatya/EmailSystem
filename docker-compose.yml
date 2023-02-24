@@ -39,7 +39,7 @@ services:
     build:
         context: .
         dockerfile: Dockerfile
-    command: celery -A emailsystem worker -l info"
+    command: celery -A emailsystem worker -l info
     volumes:
         - worker_data:/app
     links:
@@ -52,3 +52,4 @@ volumes:
   postgres_data:
   rabbit_data:
   worker_data:
+  media_volume:
