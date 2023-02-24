@@ -23,7 +23,6 @@ class SendEmail(CreateAPIView):
         if instance.email_template:
             template = instance.email_template.pk
             
-        print('template vls!!!!', template)
         context.pop('email_template')
         send_email = send_dynamic_email.delay(instance.pk, template, dict(context))
         headers = self.get_success_headers(serializer.data)
