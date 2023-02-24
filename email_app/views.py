@@ -2,10 +2,11 @@ from email_app.models import Email
 from email_app.serializers import EmailSerializer
 from email_app.tasks import send_dynamic_email
 from rest_framework import status
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from emailsystem.settings import TEMPLATE_DIR, EMAIL_HOST_USER
+from core.pagination import CustomPagination
 
 
 class SendEmail(CreateAPIView):
@@ -27,3 +28,10 @@ class SendEmail(CreateAPIView):
         send_email = send_dynamic_email.delay(instance.pk, template, dict(context))
         headers = self.get_success_headers(serializer.data)
         return Response({'message': "Email sent."}, status=status.HTTP_201_CREATED, headers=headers)
+
+
+class EmailList(ListAPIView):
+    serializer_class = EmailSerializer
+    queryset = Email.objects.all()
+    pagination_class = CustomPagination
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
