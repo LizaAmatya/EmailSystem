@@ -7,7 +7,7 @@ from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from emailsystem.settings import TEMPLATE_DIR, EMAIL_HOST_USER
-from core.pagination import CustomPagination
+from rest_framework.pagination import PageNumberPagination
 
 
 class SendEmail(CreateAPIView):
@@ -34,7 +34,7 @@ class SendEmail(CreateAPIView):
 class EmailList(ListAPIView):
     serializer_class = EmailSerializer
     queryset = Email.objects.all()
-    pagination_class = CustomPagination
+    pagination_class = PageNumberPagination
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
     filtset_class = EmailFilter
     
