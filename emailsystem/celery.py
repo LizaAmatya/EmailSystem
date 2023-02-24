@@ -2,9 +2,6 @@ from django.conf import settings
 import os
 from celery import Celery
 
-from log_management.routers import LogRouter, ReversalTaskRouter, UserActivityLogRouter
-# from celery.schedules import crontab
-
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'emailsystem.settings')
