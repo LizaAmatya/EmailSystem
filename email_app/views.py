@@ -12,7 +12,7 @@ from email_app.filters import EmailFilter
 from email_app.models import Email
 from email_app.serializers import EmailSerializer
 from email_app.tasks import send_dynamic_email
-
+from datetime import datetime
 
 class SendEmail(CreateAPIView):
     model = Email
@@ -40,11 +40,31 @@ class EmailList(ListAPIView):
     serializer_class = EmailSerializer
     queryset = Email.objects.all()
     pagination_class = PageNumberPagination
-    filter_backends = [DjangoFilterBackend]
-    filtset_class = EmailFilter
+    # filter_backends = [DjangoFilterBackend]
+    # filtset_class = EmailFilter
     # filterset_fields = ['recipient_emails']
     permission_classes = [AllowAny]
-
+    
+    def get_queryset(self):
+        qs = super().get_queryset()
+        
+        query_params = self.request.query_params
+        
+        from_date = query_params.get('from_date')
+        to_date = query_params.get('to_date')
+        email_address = query_params.get('email_address')
+        
+        if to_date == None:
+            to_date = datetime.today()
+        
+        if email_address:
+            qs = qs.filter(recipient_emails__contains=email_address)
+            
+        if from_date:
+            qs = qs.filter(created_date__date__gte=from_date, created_date__date__lte=to_date)
+        
+        return qs
+    
 
 class MarkReadUnread(APIView):
     permission_classes = [AllowAny]
