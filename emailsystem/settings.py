@@ -61,10 +61,13 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'emailsystem.urls'
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / 'media'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR],
+        'DIRS': [TEMPLATE_DIR, MEDIA_ROOT],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -132,9 +135,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-
-MEDIA_URL = "/media/"
-MEDIA_ROOT = "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
