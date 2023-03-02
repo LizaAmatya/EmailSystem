@@ -5,7 +5,9 @@ FROM python:3.8-alpine
 WORKDIR /usr/src/app
 
 ENV APP_HOME=/usr/src/app
-RUN mkdir $APP_HOME/media
+# RUN mkdir $APP_HOME/media
+
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -30,3 +32,7 @@ RUN pip install -r requirements.txt
 
 # copy project
 COPY . .
+
+RUN chown -R appuser:appgroup /usr/src/app
+RUN chown -R appuser:appgroup $APP_HOME/media
+USER appuser
